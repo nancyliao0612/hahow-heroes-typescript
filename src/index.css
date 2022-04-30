@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&display=swap");
+
+/*
+=============== 
+Variables
+===============
+*/
+:root {
+  --clr-primary-1: #2f5d62;
+  --clr-primary-2: #a7c4bc;
+  --clr-primary-3: #dfeeea;
+}
+
+/*
+=============== 
+Global Styles
+===============
+*/
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  margin: 0 200px;
+  font-family: "Noto Sans TC", sans-serif;
+  color: var(--clr-primary-1);
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.section {
+  padding: 5rem 0;
+}
+.section-center {
+  margin: 0 auto;
+}
+
+.loading {
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto;
+  margin-top: 10rem;
+  border-radius: 50%;
+  border: 4px solid #ccc;
+  border-top-color: var(--clr-primary-5);
+  animation: spinner 0.5s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.section {
+  padding: 5rem 0;
+}
+.section-center {
+  margin: 0 auto;
+}
+
+.loading {
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto;
+  margin-top: 10rem;
+  border-radius: 50%;
+  border: 4px solid #ccc;
+  border-top-color: var(--clr-primary-5);
+  animation: spinner 0.5s linear infinite;
+}
