@@ -58,17 +58,16 @@ function HeroList() {
 }
 
 const Wrapper = styled.section`
-  // border: solid 1px;
   margin-top: 5rem;
   padding: 1.5rem;
   display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-auto-rows: 25rem;
-  background-color: var(--clr-primary-2);
+  padding: 0 27rem;
 
-  a {
-    background: var(--clr-primary-3);
+  @media screen and (max-width: 768px) {
+    padding: 0 10%;
   }
 `;
 

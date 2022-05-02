@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import Loading from "../components/Loading";
-import { HeroAbility } from "../models/herocard";
-import { HeroId } from "../models/herocard";
+import { HeroAbility, HeroId } from "../models/herocard";
 
 function HeroProfile() {
   const { heroId } = useParams<HeroId>();
@@ -37,7 +36,6 @@ function HeroProfile() {
     return <Loading />;
   }
 
-  // Increase single hero's point
   function addPoints(e: React.ChangeEvent<HTMLInputElement>) {
     let { name } = e.target;
     let { point } = e.target.dataset;
@@ -51,7 +49,6 @@ function HeroProfile() {
     }
   }
 
-  // Decrease single hero's point
   function minusPoints(e: React.ChangeEvent<HTMLInputElement>) {
     let { name } = e.target;
     let { point } = e.target.dataset;
@@ -67,7 +64,7 @@ function HeroProfile() {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.patch(url, profile, {
+      await axios.patch(url, profile, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -81,33 +78,35 @@ function HeroProfile() {
   return (
     <Wrapper>
       <form onSubmit={(e) => handleSave(e)}>
-        {Object.keys(profile).map((key, index) => {
-          const value = profile[key as keyof typeof profile];
-          return (
-            <div key={index}>
-              <span>{key}</span>
-              <button
-                type="button"
-                onClick={(e: any) => addPoints(e)}
-                name={key}
-                data-point={value}
-                disabled={remainPoint === 0 ? true : false}
-              >
-                +
-              </button>
-              <span>{value}</span>
-              <button
-                type="button"
-                onClick={(e: any) => minusPoints(e)}
-                name={key}
-                data-point={value}
-                disabled={value === 0 ? true : false}
-              >
-                -
-              </button>
-            </div>
-          );
-        })}
+        <div>
+          {Object.keys(profile).map((key, index) => {
+            const value = profile[key as keyof typeof profile];
+            return (
+              <div key={index}>
+                <span>{key}</span>
+                <button
+                  type="button"
+                  onClick={(e: any) => addPoints(e)}
+                  name={key}
+                  data-point={value}
+                  disabled={remainPoint === 0 ? true : false}
+                >
+                  +
+                </button>
+                <span>{value}</span>
+                <button
+                  type="button"
+                  onClick={(e: any) => minusPoints(e)}
+                  name={key}
+                  data-point={value}
+                  disabled={value === 0 ? true : false}
+                >
+                  -
+                </button>
+              </div>
+            );
+          })}
+        </div>
         <section>
           <p>剩餘點數：{remainPoint}</p>
           <button
@@ -123,20 +122,35 @@ function HeroProfile() {
 }
 
 const Wrapper = styled.section`
-  // border: solid 1px;
+  margin: 0 27rem;
   margin-top: 2rem;
-  padding: 2rem 3rem;
+  padding: 3rem 3rem;
   font-size: 1.8rem;
-  background-color: var(--clr-primary-3);
+  background-color: var(--clr-primary-2);
+  border-radius: 1.5rem;
   position: relative;
+  min-width: 35rem;
 
-  div {
+  form {
+    display: flex;
+  }
+
+  form > div {
+    flex: 3;
+  }
+
+  form > div div:nth-child(n) {
     margin-bottom: 2rem;
+  }
+
+  div:last-of-type {
+    margin-bottom: 0;
   }
 
   span {
     display: inline-block;
     text-align: center;
+    text-transform: capitalize;
   }
 
   span:nth-child(1) {
@@ -161,10 +175,8 @@ const Wrapper = styled.section`
   }
 
   section {
-    position: absolute;
-    // border: solid 1px;
-    bottom: 3rem;
-    right: 3rem;
+    flex: 1;
+    align-self: flex-end;
   }
 
   section p {
@@ -180,6 +192,22 @@ const Wrapper = styled.section`
   button:disabled {
     cursor: not-allowed;
     opacity: 55%;
+  }
+
+  @media screen and (max-width: 1100px) {
+    form {
+      flex-direction: column;
+      justify-content: center;
+    }
+    section {
+      align-self: initial;
+      margin-top: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 880px) {
+    margin: 0 10%;
+    margin-top: 2rem;
   }
 `;
 
